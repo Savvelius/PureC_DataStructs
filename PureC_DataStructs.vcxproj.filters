@@ -37,6 +37,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="README.txt" />
+    <Text Include="README.md" />
   </ItemGroup>
 </Project>

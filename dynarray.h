@@ -3,7 +3,7 @@
 #include "memory.h"
 #include <stdio.h>
 
-#define DA(arrayname) byte* arrayname
+#define DA(arr) byte* arr
 
 typedef struct {
 	isize_t size;
@@ -31,9 +31,9 @@ DA_info* DAInfo(isize_t size, isize_t capacity, isize_t element_size);
 
 // TODO: implement a more sophisticated memory reallocation algorythm then just + elemsize * 4.
 #define DA_append(arr, el, T)   { DA_info info = DA_getinfo(arr);    \
-							      if (info.capacity > info.size){ ( (T*)arr)[info.size] = el; }    \
-							      else { arr = saferealloc( ((DA_info*)arr-1), DA_elemsize(arr) * (DA_capacity(arr) + 4) + isizeof(DA_info)) + isizeof(DA_info);    \
-									     ( (T*)arr)[info.size] = el ;((isize_t*)arr)[-2] += 4;  }    \
-								  ((isize_t*)arr)[-3] += 1;		\
+							      if (info.capacity <= info.size) {    \
+								  arr = saferealloc( ((DA_info*)arr-1), DA_elemsize(arr) * (DA_capacity(arr) + 4) + isizeof(DA_info)) + isizeof(DA_info);    \
+								  ((isize_t*)arr)[-2] += 4;  }    \
+								  memcpy(arr + info.size * info.element_size, &el, info.element_size) ; ((isize_t*)arr)[-3] += 1;		\
 						        }
 

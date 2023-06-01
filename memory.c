@@ -1,11 +1,7 @@
 #include <stdlib.h>
 #include "memory.h"
 #include "types.h"
-
-/*
-Everything is unifed to be byte*.
-One pointer type to point to them all!
-*/
+#include <stdio.h>
 
 byte* safemalloc(isize_t size) {
 	byte* p = (byte*)malloc(size);
@@ -21,6 +17,7 @@ byte* saferealloc(void* ptr, isize_t size)
 }
 
 byte* memcpy(void* dest, void* source, isize_t nbytes) {
+	printf("%d", *(int*)source);
 	for (int i = 0; i < nbytes; ++i) {
 		((byte*)dest)[i] = ((byte*)source)[i];
 	}
