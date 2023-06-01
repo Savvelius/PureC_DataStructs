@@ -3,7 +3,7 @@
 <ul>
 <li>All dynamic data structures are of type byte* - helps to unify all the functionality and maintain generic types.</li>
 <li>Interaction with these data structures must happen only with given functionality.</li>
-<li>Getting elements of given data structure happens only with it's %NAME%_getitem() function.</li>
+<li>Getting elements of given data structure happens either with subscription [] operator or with it's %NAME%_getitem() function, which checks for out of bounds.</li>
 <li>All memory interaction happens via memory.h module functionality.</li>
 <li>All data structures are based on dynamic array.</li>
 <li>In every module, data structure's functions are named: %struct name in uppercase%_%method functionality in lowercase%</li>
