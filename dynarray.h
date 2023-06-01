@@ -30,10 +30,15 @@ DA_info* DAInfo(isize_t size, isize_t capacity, isize_t element_size);
 #define DA_getitem(arr, idx, T)    (DA_length(arr) > idx && idx >= 0)?((T*)arr)[idx]:NULL
 
 // TODO: implement a more sophisticated memory reallocation algorythm then just + elemsize * 4.
-#define DA_append(arr, el, T)   { DA_info info = DA_getinfo(arr);    \
+#define DA_append(arr, el)   { DA_info info = DA_getinfo(arr);    \
 							      if (info.capacity <= info.size) {    \
 								  arr = saferealloc( ((DA_info*)arr-1), DA_elemsize(arr) * (DA_capacity(arr) + 4) + isizeof(DA_info)) + isizeof(DA_info);    \
 								  ((isize_t*)arr)[-2] += 4;  }    \
 								  memcpy(arr + info.size * info.element_size, &el, info.element_size) ; ((isize_t*)arr)[-3] += 1;		\
 						        }
+
+#define DA_insert(arr, el, pos) { DA_info info = DA_getinfo(arr); assert(pos < info.size && pos >= 0);   \
+								  		\
+								}
+
 
