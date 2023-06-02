@@ -1,6 +1,7 @@
 #pragma once
 #include "types.h"
 #include <assert.h>
+#include <stdlib.h>
 
 byte* safemalloc(isize_t size);
 byte* saferealloc(void* ptr, isize_t size);

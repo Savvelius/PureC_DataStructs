@@ -1,7 +1,7 @@
 <h1>Implementing generic data structures in pure C</h1>
 <h2>The philosophy is:</h2>
 <ul>
-<li>All dynamic data structures are of type byte* - helps to unify all the functionality and maintain generic types.</li>
+<li>All dynamic data structures are of type byte* (typedefed char) - helps to unify all the functionality and maintain generic types.</li>
 <li>Interaction with these data structures must happen only with given functionality.</li>
 <li>Getting elements of given data structure happens either with subscription [] operator or with it's %NAME%_getitem() function, which checks for out of bounds.</li>
 <li>All memory interaction happens via memory.h module functionality.</li>

@@ -1,7 +1,5 @@
-#include <stdlib.h>
 #include "memory.h"
 #include "types.h"
-#include <stdio.h>
 
 byte* safemalloc(isize_t size) {
 	byte* p = (byte*)malloc(size);
@@ -9,15 +7,13 @@ byte* safemalloc(isize_t size) {
 	return p;
 }
 
-byte* saferealloc(void* ptr, isize_t size)
-{
+byte* saferealloc(void* ptr, isize_t size) {
 	byte* new_ptr = (byte*)realloc(ptr, size);
 	assert(new_ptr);
 	return new_ptr;
 }
 
 byte* memcpy(void* dest, void* source, isize_t nbytes) {
-	printf("%d", *(int*)source);
 	for (int i = 0; i < nbytes; ++i) {
 		((byte*)dest)[i] = ((byte*)source)[i];
 	}

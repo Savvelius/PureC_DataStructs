@@ -3,17 +3,16 @@
 #include "memory.h"
 #include <stdio.h>
 
-#define DA(arr) byte* arr
-
+#define UPSIZE 4
+typedef byte* DA;
 typedef struct {
 	isize_t size;
 	isize_t capacity;
 	isize_t element_size;
 } DA_info;
 
-void DA_info_print(DA_info info);
-
 DA_info* DAInfo(isize_t size, isize_t capacity, isize_t element_size);
+DA DA_setinfo(byte* arr, DA_info* info);
 
 #define DA_init(T, prealloc)   memcpy( safemalloc(isizeof(T) * prealloc + isizeof(DA_info)), DAInfo(0, prealloc, isizeof(T)), isizeof(DA_info) ) + isizeof(DA_info)
 
@@ -22,23 +21,23 @@ DA_info* DAInfo(isize_t size, isize_t capacity, isize_t element_size);
 #define DA_capacity(arr)    ((isize_t*)arr)[-2]
 #define DA_elemsize(arr)    ((isize_t*)arr)[-1]
 
-// can only be called on arrays of int. Idk how to fix it. Good enough for debug
-#define DA_print(arr)    putchar('['); for (int i = 0; i < DA_length(arr); i++){ printf("%d, ", ((int*)arr)[i]); }; puts("]\n");
+// DEBUG, only for int
+#define DA_print(arr)    putchar('['); for (int i = 0; i < DA_length(arr); i++){ printf("%d, ", ((int*)arr)[i]); }; puts("]\n"); 
+#define DA_getitem(arr, idx, return_type)    (DA_length(arr) > idx && idx >= 0)?*(return_type*)(arr + idx * DA_elemsize(arr)):NULL
 
-#define DA_printinfo(arr)    DA_info_print(DA_getinfo(arr))
+DA DA_getslice(DA arr, isize_t start, isize_t end);
+void DA_printinfo(DA arr);						 
+DA DA_upsize(DA arr, isize_t addsize);
+void DA_remove(DA arr, isize_t index);
 
-#define DA_getitem(arr, idx, T)    (DA_length(arr) > idx && idx >= 0)?((T*)arr)[idx]:NULL
-
-// TODO: implement a more sophisticated memory reallocation algorythm then just + elemsize * 4.
 #define DA_append(arr, el)   { DA_info info = DA_getinfo(arr);    \
-							      if (info.capacity <= info.size) {    \
-								  arr = saferealloc( ((DA_info*)arr-1), DA_elemsize(arr) * (DA_capacity(arr) + 4) + isizeof(DA_info)) + isizeof(DA_info);    \
-								  ((isize_t*)arr)[-2] += 4;  }    \
-								  memcpy(arr + info.size * info.element_size, &el, info.element_size) ; ((isize_t*)arr)[-3] += 1;		\
-						        }
+							      if (info.size >= info.capacity) { arr = DA_upsize(arr, UPSIZE); }   \
+								  memcpy(arr + info.size * info.element_size, &el, info.element_size) ; ((isize_t*)arr)[-3]++;		\
+						     }
 
-#define DA_insert(arr, el, pos) { DA_info info = DA_getinfo(arr); assert(pos < info.size && pos >= 0);   \
-								  		\
-								}
-
+#define DA_insert(arr, el, index) { DA_info info = DA_getinfo(arr); assert(index < info.size && index >= 0);   \
+									if (info.size >= info.capacity){ arr = DA_upsize(arr, UPSIZE); }\
+									for (int i = info.size * info.element_size - 1; i >= index * info.element_size; i --){ arr[i + info.element_size] = arr[i]; }  \
+									memcpy(arr + index * info.element_size, &el, info.element_size) ; ((isize_t*)arr)[-3]++;  \
+ 								  }
 
