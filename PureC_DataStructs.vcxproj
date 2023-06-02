@@ -128,11 +128,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dynarray.c" />
+    <ClCompile Include="hashmap.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="memory.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dynarray.h" />
+    <ClInclude Include="hashmap.h" />
     <ClInclude Include="memory.h" />
     <ClInclude Include="types.h" />
   </ItemGroup>

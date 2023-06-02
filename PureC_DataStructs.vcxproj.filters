@@ -24,6 +24,9 @@
     <ClCompile Include="memory.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="hashmap.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dynarray.h">
@@ -33,6 +36,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="memory.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="hashmap.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

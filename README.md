@@ -10,4 +10,16 @@
 <li><p>Before every data structure lies a 'header' struct which contains main information about the array.
 This header leads to O(1) time for getting structure's length, capacity, element size and other crucial parameters.</p></li>
 </ul>
+<h2>Note:</h2>
+Code like this:
+
+```
+DA_append(array, 10)
+```
+
+will not work, because of the internal memcpy mechnism that any insertion invokes. Therefore, (for now) only further code is valid:
+```
+int elem = 10;
+DA_append(array, elem);
+```
 <h2>You are free to extend this interface, presuming you will follow the principles above.</h2>
