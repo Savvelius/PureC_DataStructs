@@ -22,4 +22,4 @@ will not work, because of the internal memcpy mechnism that any insertion invoke
 int elem = 10;
 DA_append(array, elem);
 ```
-<h2>You are free to extend this interface, presuming you will follow the principles above.</h2>
+
